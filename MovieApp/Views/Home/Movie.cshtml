@@ -1,0 +1,19 @@
+﻿@model MovieApp.ViewModels.MovieViewModel
+
+@{
+    ViewData["Title"] = "Movie Info";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<h1>@Model.Title</h1>
+<p>@Model.Year</p>
+<p>@Model.Summary</p>
+@if (Model.Actors == null || !Model.Actors.Any())
+{
+    <p>No actors found</p>
+}
+else
+{
+    <p>Actors: @string.Join(", ", @Model.Actors)</p>
+}

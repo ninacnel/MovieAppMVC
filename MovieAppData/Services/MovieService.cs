@@ -17,6 +17,7 @@ namespace MovieApp.Data.Services
         {
             var movies = _context.Movies.Include(m => m.Actors).Select(m => new MovieViewModel
             {
+                Id = m.Id,
                 Title = m.Title,
                 Year = m.Year,
                 Summary = m.Summary,
@@ -24,6 +25,31 @@ namespace MovieApp.Data.Services
             }).ToList();
             return movies;
         }
+
+        public MovieViewModel GetMovie(int id)
+        {
+            var movie = _context.Movies
+                .Include(m => m.Actors) // Explicitly include Actors
+                .SingleOrDefault(m => m.Id == id);
+
+            if (movie == null)
+            {
+                // Handle the case where no movie with the specified ID is found
+                return null;
+            }
+
+            var movieViewModel = new MovieViewModel
+            {
+                Id = movie.Id,
+                Title = movie.Title,
+                Year = movie.Year,
+                Summary = movie.Summary,
+                Actors = movie.Actors?.Select(a => a.Fullname).ToList() ?? new List<string>()
+            };
+
+            return movieViewModel;
+        }
+
 
         public MovieViewModel AddMovie(MovieViewModel movie)
         {

@@ -1,4 +1,4 @@
-﻿@model IEnumerable<MovieApp.ViewModels.MovieViewModel>
+﻿@model List<MovieApp.ViewModels.MovieViewModel>
 
 @{
     ViewData["Title"] = "Home Page";
@@ -6,14 +6,26 @@
 
 <h2>@ViewData["Title"]</h2>
 
-@foreach(var movie in Model)
-{
-    <h1>@movie.Title</h1>
-    <p>@movie.Year</p>
-    <p>@movie.Summary</p>
-    <p>@movie.Actors</p>
-}
+<div class="container">
+    <div class="row">
+        @foreach (var movie in Model)
+        {
+            <div class="col-lg-6 col-md-12 mb-3">
+                <div class="card p-3 m-2 shadow d-flex flex-row align-items-center">
+                    <img src="https://i.pinimg.com/564x/90/c4/62/90c462185bd22c55362db291ec0cb6f4.jpg" style="height:200px; width:140px"/>
+                    <div style="margin-left:10px">
+                        <h1>@movie.Title</h1>
+                        <p>@movie.Year</p>
+                        @*<p>@movie.Summary</p>*@
+						<p>@string.Join(", ", movie.Actors)</p>
+                        <a asp-controller="Home" asp-action="Movie" asp-route-id="@movie.Id">View Details</a>
+                    </div>                
+                </div>
+            </div>
+        }
+    </div>
+</div>
 
-<div>
-    <a asp-action="AddMovie">Add Movie</a>
+<div class="d-flex justify-content-center align-items-center">
+    <a class="btn btn-light" asp-action="AddMovie">Add Movie</a>
 </div>
