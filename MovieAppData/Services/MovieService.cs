@@ -53,7 +53,6 @@ namespace MovieApp.Data.Services
 
         public MovieViewModel AddMovie(MovieViewModel movie)
         {
-            // Create a new Movie entity
             var newMovie = new Movie
             {
                 Title = movie.Title,
@@ -62,13 +61,10 @@ namespace MovieApp.Data.Services
                 Actors = movie.Actors.Select(actor => new Actor { Fullname = actor }).ToList()
             };
 
-            // Add the new movie to the context
             _context.Movies.Add(newMovie);
 
-            // Save changes to the database
             _context.SaveChanges();
 
-            // Map the new movie back to a view model and return it
             var newMovieViewModel = new MovieViewModel
             {
                 Title = newMovie.Title,
@@ -79,5 +75,39 @@ namespace MovieApp.Data.Services
 
             return newMovieViewModel;
         }
-    }
+
+		public MovieViewModel ModifyMovie(MovieViewModel movie)
+		{
+			var movieDB = _context.Movies
+				.Include(m => m.Actors)
+				.SingleOrDefault(m => m.Id == movie.Id);
+
+			if (movieDB != null)
+			{
+				// Update the properties of the existing movieDB
+				movieDB.Title = movie.Title;
+				movieDB.Year = movie.Year;
+				movieDB.Summary = movie.Summary;
+
+				// Clear existing actors and add new actors
+				movieDB.Actors.Clear();
+				movieDB.Actors.AddRange(movie.Actors.Select(actor => new Actor { Fullname = actor }));
+
+				_context.SaveChanges();
+
+				var updatedMovie = new MovieViewModel
+				{
+					Title = movieDB.Title,
+					Year = movieDB.Year,
+					Summary = movieDB.Summary,
+					Actors = movieDB.Actors.Select(a => a.Fullname).ToList()
+				};
+
+				return updatedMovie;
+			}
+
+			// Handle the case where no movie with the specified ID is found
+			return null;
+		}
+	}
 }

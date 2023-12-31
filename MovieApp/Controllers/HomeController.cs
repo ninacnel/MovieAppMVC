@@ -46,6 +46,22 @@ namespace MovieApp.Controllers
             return View(movie);
         }
 
+        public IActionResult ModifyMovie()
+        {
+            return View();
+        }
+
+        [HttpPut]
+        public IActionResult ModifyMovie(MovieViewModel movie)
+        {
+            if (ModelState.IsValid)
+            {
+                _service.ModifyMovie(movie);
+                return RedirectToAction("Index");
+            }
+            return View(movie);
+        }
+
         public IActionResult Privacy()
         {
             return View();
