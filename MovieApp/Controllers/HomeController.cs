@@ -10,12 +10,10 @@ namespace MovieApp.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly MovieDataContext _context;
         private readonly MovieService _service;
 
-        public HomeController(MovieDataContext context, MovieService service)
+        public HomeController(MovieService service)
         {
-            _context = context;
             _service = service; 
         }
 
@@ -23,6 +21,22 @@ namespace MovieApp.Controllers
         {
             var movies = _service.GetMovies();
             return View(movies);
+        }
+
+        public IActionResult AddMovie()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult AddMovie(MovieViewModel movie)
+        {
+            if (ModelState.IsValid)
+            {
+                _service.AddMovie(movie);
+                return RedirectToAction("Index");
+            }
+            return View(movie);
         }
 
         public IActionResult Privacy()

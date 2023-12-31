@@ -7,7 +7,7 @@ namespace MovieApp.ViewModels
         public string Title { get; set; }
         public int Year { get; set; }
         public string Summary { get; set; }
-        public string Actors { get; set; }
+        public List<string> Actors { get; set; }
     }
 }
 

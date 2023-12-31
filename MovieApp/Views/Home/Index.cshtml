@@ -4,6 +4,8 @@
     ViewData["Title"] = "Home Page";
 }
 
+<h2>@ViewData["Title"]</h2>
+
 @foreach(var movie in Model)
 {
     <h1>@movie.Title</h1>
@@ -11,3 +13,7 @@
     <p>@movie.Summary</p>
     <p>@movie.Actors</p>
 }
+
+<div>
+    <a asp-action="AddMovie">Add Movie</a>
+</div>
