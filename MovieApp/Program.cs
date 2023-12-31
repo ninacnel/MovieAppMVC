@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using MovieApp.Data;
+using MovieApp.Data.Services;
 
 namespace MovieApp
 {
@@ -10,6 +11,7 @@ namespace MovieApp
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
+            ConfigureServices(builder.Services);
             builder.Services.AddControllersWithViews();
 
             builder.Services.AddDbContext<MovieDataContext>(
@@ -34,6 +36,12 @@ namespace MovieApp
             //to add initial data if necessary
             app.Seed();
             app.Run();
+        }
+
+        private static void ConfigureServices(IServiceCollection services)
+        {
+            // Other service registrations...
+            services.AddScoped<MovieService>(); // Assuming MovieService has no dependencies
         }
     }
 }

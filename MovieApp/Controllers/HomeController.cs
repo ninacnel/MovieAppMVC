@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using MovieApp.Data;
+using MovieApp.Data.Services;
 using MovieApp.Models;
 using MovieApp.ViewModels;
 using System.Diagnostics;
@@ -10,21 +11,17 @@ namespace MovieApp.Controllers
     public class HomeController : Controller
     {
         private readonly MovieDataContext _context;
+        private readonly MovieService _service;
 
-        public HomeController(MovieDataContext context)
+        public HomeController(MovieDataContext context, MovieService service)
         {
             _context = context;
+            _service = service; 
         }
 
-        public IActionResult Index()
+        public ActionResult Index()
         {
-            var movies = _context.Movies.Include(m => m.Actors).Select(m=> new MovieViewModel
-            { 
-                Title = m.Title,
-                Year = m.Year,
-                Summary = m.Summary,
-                Actors = string.Join(',', m.Actors.Select(a => a.Fullname))
-            }).ToList();
+            var movies = _service.GetMovies();
             return View(movies);
         }
 
