@@ -21,6 +21,7 @@ namespace MovieApp.Data.Services
                 Title = m.Title,
                 Year = m.Year,
                 Summary = m.Summary,
+                State = m.State,
                 Actors = m.Actors.Select(a => a.Fullname).ToList()
             }).ToList();
             return movies;
@@ -44,6 +45,7 @@ namespace MovieApp.Data.Services
                 Title = movie.Title,
                 Year = movie.Year,
                 Summary = movie.Summary,
+                State = movie.State,
                 Actors = movie.Actors?.Select(a => a.Fullname).ToList() ?? new List<string>()
             };
 
@@ -58,6 +60,7 @@ namespace MovieApp.Data.Services
                 Title = movie.Title,
                 Year = movie.Year,
                 Summary = movie.Summary,
+                State = true,
                 Actors = movie.Actors.Select(actor => new Actor { Fullname = actor }).ToList()
             };
 
@@ -70,6 +73,7 @@ namespace MovieApp.Data.Services
                 Title = newMovie.Title,
                 Year = newMovie.Year,
                 Summary = newMovie.Summary,
+                State = newMovie.State,
                 Actors = newMovie.Actors.Select(a => a.Fullname).ToList()
             };
 
