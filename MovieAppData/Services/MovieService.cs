@@ -109,5 +109,25 @@ namespace MovieApp.Data.Services
 			// Handle the case where no movie with the specified ID is found
 			return null;
 		}
-	}
+
+        public void SoftDeleteMovie(int id)
+        {
+            var movie = _context.Movies.Single(m => m.Id == id);
+            if (movie != null)
+            {
+                movie.State = false;
+                _context.SaveChanges();
+            }
+        }
+
+        public void RecoverMovie(int id)
+        {
+            var movie = _context.Movies.Single(m => m.Id == id);
+            if (movie != null)
+            {
+                movie.State = true;
+                _context.SaveChanges();
+            }
+        }
+    }
 }

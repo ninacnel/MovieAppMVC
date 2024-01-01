@@ -9,6 +9,7 @@ namespace MovieAppData
         public string Title { get; set; }
         public int Year { get; set; }
         public string Summary { get; set; }
+        public bool State { get; set; }
         [MaxLength(3)]
         public List<Actor> Actors { get; set; }
     }

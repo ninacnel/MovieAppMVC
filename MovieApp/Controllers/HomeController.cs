@@ -66,6 +66,20 @@ namespace MovieApp.Controllers
             return View(movie);
         }
 
+        [HttpPatch]
+        public ActionResult SoftDeleteMovie(int id)
+        {
+            _service.SoftDeleteMovie(id);
+            return Ok();
+        }
+
+        [HttpPatch]
+        public ActionResult RecoverMovie(int id)
+        {
+            _service.RecoverMovie(id);
+            return Ok();
+        }
+
         public IActionResult Privacy()
         {
             return View();
