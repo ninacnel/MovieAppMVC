@@ -6,7 +6,7 @@
 
 <h2>@ViewData["Title"]</h2>
 
-<form asp-action="ModifyMovie" asp-method="put">
+<form asp-action="ModifyMovie" method="post">
     <input type="hidden" asp-for="Id" />
     <div class="form-group">
         <label asp-for="Title"></label>
@@ -22,7 +22,10 @@
     </div>
     <div class="form-group">
         <label asp-for="Actors"></label>
-        <input asp-for="Actors" class="form-control" />
+        @foreach (var actor in Model.Actors)
+        {
+            <input asp-for="Actors" class="form-control" value="@actor" />
+        }
         <small class="form-text text-muted">Enter actor names separated by commas.</small>
     </div>
     <button type="submit" class="btn btn-primary">Modify Movie</button>

@@ -46,12 +46,16 @@ namespace MovieApp.Controllers
             return View(movie);
         }
 
-        public IActionResult ModifyMovie()
+        // GET: Render the initial view for modifying a movie
+        [HttpGet]
+        public IActionResult ModifyMovie(int id)
         {
-            return View();
+            MovieViewModel movie = _service.GetMovie(id);
+            return View(movie);
         }
 
-        [HttpPut]
+        // POST: Handle the form submission for modifying a movie
+        [HttpPost]
         public IActionResult ModifyMovie(MovieViewModel movie)
         {
             if (ModelState.IsValid)
