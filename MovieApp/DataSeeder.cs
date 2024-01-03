@@ -1,5 +1,5 @@
 ﻿using MovieApp.Data;
-using MovieAppData;
+using MovieApp.Data.Models;
 
 namespace MovieApp
 {

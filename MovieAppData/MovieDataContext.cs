@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using MovieAppData;
+using MovieApp.Data.Models;
 
 namespace MovieApp.Data
 {
@@ -17,5 +17,6 @@ namespace MovieApp.Data
 
         public DbSet<Movie> Movies { get; set; }
         public DbSet<Actor> Actors { get; set; }
+        public DbSet<User> Users { get; set; }
     }
 }
